@@ -1,0 +1,370 @@
+{
+  "metadata": {
+    "title": "Le Bureau du Secrétaire - Données",
+    "language": "fr",
+    "author": "Assistant",
+    "version": "0.1"
+  },
+  "initialGauges": {
+    "stability": 65,
+    "satisfaction": 60,
+    "economy": 55,
+    "security": 70,
+    "relations": 50
+  },
+  "advisors": [
+    {
+      "id": "econ",
+      "name": "Conseiller Économique",
+      "bias": "économie",
+      "description": "Prône la planification stricte et les réquisitions pour maintenir la production."
+    },
+    {
+      "id": "sec",
+      "name": "Chef de la Sécurité",
+      "bias": "sécurité",
+      "description": "Favorise mesures fermes, contrôles et purges pour préserver l'ordre."
+    },
+    {
+      "id": "dipl",
+      "name": "Ministre des Affaires étrangères",
+      "bias": "relations",
+      "description": "Cherche alliances et concessions internationales; craint l'isolement."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "intro",
+      "title": "Le Matin au Bureau",
+      "text": "Le téléphone rouge clignote. Sur votre bureau, trois enveloppes : un rapport économique, une note du ministère de l'Intérieur, et un télégramme d'un allié. L'adjoint attend. Que décidez‑vous en premier ?",
+      "choices": [
+        {
+          "id": "intro_a",
+          "text": "Lancer une réquisition d'urgence pour les usines",
+          "effects": {"economy": 10, "satisfaction": -8, "security": -2, "stability": -3},
+          "delayedEffects": [
+            {"afterTurns": 2, "condition": {"security": {"lt": 40}}, "effects": {"satisfaction": -5}, "note": "Risque de grèves si la sécurité est faible"}
+          ],
+          "resultText": "Les chaînes reprennent, la production grimpe, mais la population remarque la pression accrue."
+        },
+        {
+          "id": "intro_b",
+          "text": "Allouer des fonds au logement et rationner l'industrie",
+          "effects": {"satisfaction": 8, "economy": -6, "relations": -2, "stability": 2},
+          "resultText": "La rue se calme, les files s'apaisent; les usines ralentissent, certains partenaires s'inquiètent."
+        },
+        {
+          "id": "intro_c",
+          "text": "Convoquer l'État-Major et multiplier les inspections",
+          "effects": {"security": 12, "economy": -4, "satisfaction": -6, "stability": 1, "relations": -3},
+          "resultText": "L'ordre est réaffirmé, des camions partent vers les sites, mais le ton devient plus répressif."
+        }
+      ]
+    },
+    {
+      "id": "minister_scandal",
+      "title": "Murmures sur un Ministre",
+      "text": "Un journaliste étranger évoque des transferts douteux impliquant un ministre influent. Le Parti craint la contagion. Que faites‑vous ?",
+      "choices": [
+        {
+          "id": "scandal_a",
+          "text": "Lancer une enquête publique et organiser une mise en scène de contrition",
+          "effects": {"stability": -5, "satisfaction": 5, "relations": -2},
+          "resultText": "La transparence contrôlée rassure la population, mais fragilise l'appareil du Parti."
+        },
+        {
+          "id": "scandal_b",
+          "text": "Ordonner une purge discrète et un déplacement du ministre",
+          "effects": {"stability": 4, "security": 3, "satisfaction": -7},
+          "resultText": "Le ministre disparaît des discours officiels. L'ordre tient, mais la peur grandit."
+        }
+      ]
+    },
+    {
+      "id": "foreign_offer",
+      "title": "Proposition d'un allié",
+      "text": "Un allié propose une aide économique conditionnelle à une réforme diplomatique. Acceptez‑vous ?",
+      "choices": [
+        {
+          "id": "ally_yes",
+          "text": "Accepter l'aide malgré la concession diplomatique",
+          "preconditions": {"relations": {"gte": 30}},
+          "effects": {"economy": 15, "relations": -10, "stability": 1},
+          "resultText": "L'aide arrive, soulagant les usines, mais votre marge de manœuvre diplomatique diminue."
+        },
+        {
+          "id": "ally_no",
+          "text": "Refuser pour préserver l'indépendance",
+          "effects": {"relations": -5, "stability": 0, "economy": -6},
+          "resultText": "Vous gardez la dignité, mais les entrepôts restent vides."
+        }
+      ]
+    },
+    {
+      "id": "festival_crisis",
+      "title": "Cérémonie nationale manquée",
+      "text": "Une tempête locale empêche le déroulement d'une grande cérémonie. L'opposition en profite. Quelle réponse ?",
+      "choices": [
+        {
+          "id": "fest_a",
+          "text": "Organiser un discours télévisé solennel",
+          "effects": {"satisfaction": 6, "stability": 2, "economy": -2},
+          "resultText": "Votre voix rassure; les caméras captent l'émotion attendue."
+        },
+        {
+          "id": "fest_b",
+          "text": "Minimiser l'événement et blâmer les médias étrangers",
+          "effects": {"relations": -6, "stability": -3, "satisfaction": -4},
+          "resultText": "La rhétorique enflamme les réseaux, certains doutent."
+        }
+      ]
+    },
+    {
+      "id": "dilemma_01",
+      "title": "Quota inattendu",
+      "text": "Le Comité central exige un dépassement du quota de production pour le trimestre. Vos lignes de ravitaillement sont incertaines.",
+      "choices": [
+        {"id": "d01_a", "text": "Imposer le dépassement, relancer les réquisitions", "effects": {"economy": 8, "satisfaction": -6, "stability": -2}},
+        {"id": "d01_b", "text": "Négocier une extension du délai", "effects": {"stability": 3, "economy": -4, "relations": 0}},
+        {"id": "d01_c", "text": "Dissoudre le comité local et remplacer les dirigeants", "effects": {"stability": 2, "security": 4, "satisfaction": -5}}
+      ]
+    },
+    {
+      "id": "dilemma_02",
+      "title": "Rationnement étendu",
+      "text": "Le ministère du ravitaillement propose d'étendre le rationnement aux produits de première nécessité pour six mois.",
+      "choices": [
+        {"id": "d02_a", "text": "Accepter le rationnement pour stabiliser l'économie", "effects": {"economy": 6, "satisfaction": -10, "stability": -1}},
+        {"id": "d02_b", "text": "Subventionner discrètement certaines régions", "effects": {"satisfaction": 5, "economy": -7, "relations": 0}},
+        {"id": "d02_c", "text": "Refuser et annoncer des mesures symboliques", "effects": {"satisfaction": 3, "stability": -3, "relations": -2}}
+      ]
+    },
+    {
+      "id": "dilemma_03",
+      "title": "Manifestation étudiante",
+      "text": "Des étudiants organisent une marche pour l'emploi et la liberté culturelle. La presse officielle minimise l'événement.",
+      "choices": [
+        {"id": "d03_a", "text": "Autoriser une poignée de revendications culturelles", "effects": {"satisfaction": 6, "stability": -2, "relations": 0}},
+        {"id": "d03_b", "text": "Interdire la manifestation et arrêter les leaders", "effects": {"security": 8, "satisfaction": -12, "stability": 3}},
+        {"id": "d03_c", "text": "Ouvrir un dialogue public contrôlé", "effects": {"satisfaction": 4, "stability": -1, "relations": 1}}
+      ]
+    },
+    {
+      "id": "dilemma_04",
+      "title": "Accord commercial contesté",
+      "text": "Un consortium industriel étranger propose un partenariat pour moderniser une usine-clé, mais exige des garanties juridiques. Les traditionalistes s'opposent.",
+      "choices": [
+        {"id": "d04_a", "text": "Signer le partenariat pour la modernisation", "effects": {"economy": 12, "relations":  -6, "stability": -2}},
+        {"id": "d04_b", "text": "Refuser et lancer un projet national", "effects": {"economy": -5, "stability": 3, "relations": 2}},
+        {"id": "d04_c", "text": "Signer partiellement avec clauses strictes", "effects": {"economy": 6, "relations": -3, "stability": 0}}
+      ]
+    },
+    {
+      "id": "dilemma_05",
+      "title": "Rumeur de corruption locale",
+      "text": "Des bruits courent sur des marchés noirs gérés par un comité régional. Le peuple en entend parler.",
+      "choices": [
+        {"id": "d05_a", "text": "Envoyer une commission d'enquête publique", "effects": {"satisfaction": 5, "stability": -4, "relations": -1}},
+        {"id": "d05_b", "text": "Étouffer l'affaire et rétrograder quelques responsables", "effects": {"stability": 2, "satisfaction": -3, "security": 1}},
+        {"id": "d05_c", "text": "Utiliser l'affaire pour purger la faction rivale", "effects": {"stability": 6, "security": 4, "satisfaction": -8}}
+      ]
+    },
+    {
+      "id": "dilemma_06",
+      "title": "Panne d'énergie majeure",
+      "text": "Une centrale électrique tombe en panne; le rationnement de courant s'impose. Les usines critiques sont menacées.",
+      "choices": [
+        {"id": "d06_a", "text": "Prioriser les usines stratégiques, couper le reste", "effects": {"economy": 7, "satisfaction": -9, "stability": 1}},
+        {"id": "d06_b", "text": "Ouvrir un fonds d'urgence pour réparations locales", "effects": {"economy": -6, "satisfaction": 4, "relations": 0}},
+        {"id": "d06_c", "text": "Demander une assistance technique étrangère", "preconditions": {"relations": {"gte": 40}}, "effects": {"economy": 10, "relations": -8, "stability": -1}}
+      ]
+    },
+    {
+      "id": "dilemma_07",
+      "title": "Lettre anonyme aux cadres",
+      "text": "Une lettre circule accusant plusieurs cadres de détournements. Le Chef des Cadres réclame une réponse rapide.",
+      "choices": [
+        {"id": "d07_a", "text": "Réprimer et blâmer l'opposition", "effects": {"security": 5, "stability": 2, "satisfaction": -6}},
+        {"id": "d07_b", "text": "Lancer une enquête interne discrète", "effects": {"stability": -2, "relations": 0, "satisfaction": 1}},
+        {"id": "d07_c", "text": "Publier un rapport partiel de transparence", "effects": {"satisfaction": 3, "stability": -3, "relations": -1}}
+      ]
+    },
+    {
+      "id": "dilemma_08",
+      "title": "Ambassadeur compromis",
+      "text": "Votre ambassadeur est soupçonné de collusion avec des intérêts étrangers. Le Ministère des Affaires étrangères demande sa révocation.",
+      "choices": [
+        {"id": "d08_a", "text": "Rappeler l'ambassadeur et lancer des consultations", "effects": {"relations": -4, "stability": 1, "satisfaction": 0}},
+        {"id": "d08_b", "text": "Le maintenir en poste pour des raisons stratégiques", "effects": {"relations": 2, "stability": -2, "satisfaction": -2}},
+        {"id": "d08_c", "text": "Procéder à un remplacement immédiat", "effects": {"stability": 2, "relations": -3, "security": 1}}
+      ]
+    },
+    {
+      "id": "dilemma_09",
+      "title": "Censure d'un roman populaire",
+      "text": "Un roman critique du collectivisme gagne en popularité. Le Ministre de la Propagande propose son interdiction.",
+      "choices": [
+        {"id": "d09_a", "text": "Interdire le livre et punir l'éditeur", "effects": {"security": 6, "satisfaction": -7, "relations": 0}},
+        {"id": "d09_b", "text": "Laisser la publication, émettre une critique officielle", "effects": {"satisfaction": 3, "stability": -1, "relations": 0}},
+        {"id": "d09_c", "text": "Encourager un débat encadré", "effects": {"satisfaction": 4, "stability": -2, "relations": 1}}
+      ]
+    },
+    {
+      "id": "dilemma_10",
+      "title": "Visite d'une délégation étrangère",
+      "text": "Une délégation économique visite Novograd; le calendrier est serré et la presse observe chaque geste.",
+      "choices": [
+        {"id": "d10_a", "text": "Offrir des concessions commerciales limitées", "effects": {"economy": 8, "relations": 3, "stability": -2}},
+        {"id": "d10_b", "text": "Maintenir une ligne ferme et refuser concessions", "effects": {"relations": -5, "stability": 1, "economy": -3}},
+        {"id": "d10_c", "text": "Proposer des projets culturels pour apaiser les relations", "effects": {"relations": 4, "satisfaction": 2, "economy": -2}}
+      ]
+    },
+    {
+      "id": "dilemma_11",
+      "title": "Sabotage ciblé",
+      "text": "Un transformateur explose dans une usine clé; une cellule saboteuse est suspectée.",
+      "choices": [
+        {"id": "d11_a", "text": "Lancer une enquête et arrêter des suspects rapidement", "effects": {"security": 7, "satisfaction": -4, "stability": 2}},
+        {"id": "d11_b", "text": "Offrir des primes aux ouvriers pour qu'ils gardent la production", "effects": {"economy": 6, "satisfaction": 5, "stability": -2}},
+        {"id": "d11_c", "text": "Blâmer des intérêts étrangers publiquement", "effects": {"relations": -6, "stability": 1, "satisfaction": -3}}
+      ]
+    },
+    {
+      "id": "dilemma_12",
+      "title": "Coalition de cadres",
+      "text": "Plusieurs cadres proposent une coalition technique pour gérer la crise. Est-ce une bonne idée ?",
+      "choices": [
+        {"id": "d12_a", "text": "Accepter la coalition et partager le pouvoir", "effects": {"stability": -5, "satisfaction": 4, "relations": 0}},
+        {"id": "d12_b", "text": "Refuser et renforcer votre contrôle central", "effects": {"stability": 3, "security": 2, "satisfaction": -5}},
+        {"id": "d12_c", "text": "Accorder une coalition limitée avec conditions", "effects": {"stability": -1, "satisfaction": 2, "economy": 1}}
+      ]
+    },
+    {
+      "id": "dilemma_13",
+      "title": "Pénurie de médicaments",
+      "text": "Les hôpitaux signalent une pénurie critique de médicaments essentiels.",
+      "choices": [
+        {"id": "d13_a", "text": "Prioriser la distribution aux villes principales", "effects": {"satisfaction": -6, "stability": 1, "economy": -2}},
+        {"id": "d13_b", "text": "Allouer réserves d'urgence nationales", "effects": {"satisfaction": 8, "economy": -10, "relations": 0}},
+        {"id": "d13_c", "text": "Négocier imports sanitaires avec un voisin", "preconditions": {"relations": {"gte": 35}}, "effects": {"economy": 5, "relations": -6, "satisfaction": 4}}
+      ]
+    },
+    {
+      "id": "dilemma_14",
+      "title": "Hommage officiel controversé",
+      "text": "Un ancien dirigeant local fait l'objet d'un hommage national; des documents le lient à des abus. Publierez-vous l'hommage ?",
+      "choices": [
+        {"id": "d14_a", "text": "Maintenir l'hommage pour l'unité", "effects": {"stability": 4, "satisfaction": -3, "relations": 0}},
+        {"id": "d14_b", "text": "Annuler et enquêter publiquement", "effects": {"satisfaction": 5, "stability": -5, "relations": -1}},
+        {"id": "d14_c", "text": "Garder l'hommage mais limiter la cérémonie", "effects": {"stability": 1, "satisfaction": -1, "security": 0}}
+      ]
+    },
+    {
+      "id": "dilemma_15",
+      "title": "Grève des transports",
+      "text": "Les chauffeurs de bus entament une grève pour de meilleures conditions. Les villes s'étouffent.",
+      "choices": [
+        {"id": "d15_a", "text": "Conclure un accord salarial immédiat", "effects": {"satisfaction": 7, "economy": -8, "stability": 0}},
+        {"id": "d15_b", "text": "Mobiliser forces de l'ordre pour assurer les transports", "effects": {"security": 6, "satisfaction": -9, "stability": 3}},
+        {"id": "d15_c", "text": "Automatiser certaines lignes (coût long terme)", "effects": {"economy": -5, "satisfaction": 2, "stability": -1}, "delayedEffects": [{"afterTurns": 4, "effects": {"economy": 6}, "note": "Modernisation productivité"}]}
+      ]
+    },
+    {
+      "id": "dilemma_16",
+      "title": "Plume dissidente",
+      "text": "Un écrivain critique publie une série d'articles. Le Chef de la Propagande demande une riposte culturelle.",
+      "choices": [
+        {"id": "d16_a", "text": "Interdire et poursuivre l'auteur", "effects": {"security": 5, "satisfaction": -6, "relations": -1}},
+        {"id": "d16_b", "text": "Répondre avec une série d'articles officiels", "effects": {"satisfaction": 1, "stability": 0, "relations": 0}},
+        {"id": "d16_c", "text": "Lancer un concours littéraire officiel pour détourner l'attention", "effects": {"satisfaction": 3, "economy": -2, "stability": 1}}
+      ]
+    },
+    {
+      "id": "dilemma_17",
+      "title": "Inspection surprise",
+      "text": "Le contrôle central propose une inspection surprise des régions. Certains cadres paniquent.",
+      "choices": [
+        {"id": "d17_a", "text": "Accepter l'inspection pour montrer la transparence", "effects": {"satisfaction": 4, "stability": -2, "relations": 0}},
+        {"id": "d17_b", "text": "Refuser et accuser le centre de déstabilisation", "effects": {"stability": 3, "relations": -3, "satisfaction": -2}},
+        {"id": "d17_c", "text": "Négocier une inspection limitée", "effects": {"stability": 1, "satisfaction": -1, "relations": -1}}
+      ]
+    },
+    {
+      "id": "dilemma_18",
+      "title": "Budget culturel coupé",
+      "text": "Le Trésor propose de couper le budget culturel pour financer l'industrie lourde. Le Ministre de la Propagande proteste.",
+      "choices": [
+        {"id": "d18_a", "text": "Maintenir la coupure pour relancer l'industrie", "effects": {"economy": 6, "satisfaction": -4, "stability": 0}},
+        {"id": "d18_b", "text": "Compromis: subventions ciblées pour spectacles populaires", "effects": {"satisfaction": 3, "economy": -3, "relations": 0}},
+        {"id": "d18_c", "text": "Annuler la coupure et chercher emprunts internes", "effects": {"economy": -7, "stability": 2, "satisfaction": 2}}
+      ]
+    },
+    {
+      "id": "dilemma_19",
+      "title": "Appel des syndicats",
+      "text": "Les syndicats demandent une révision des quotas et une augmentation salariale générale.",
+      "choices": [
+        {"id": "d19_a", "text": "Accorder une hausse partielle et promettre étude", "effects": {"satisfaction": 6, "economy": -6, "stability": 1}},
+        {"id": "d19_b", "text": "Refuser et menacer de sanctions", "effects": {"security": 4, "satisfaction": -9, "stability": 3}},
+        {"id": "d19_c", "text": "Proposer une réforme des quotas sur le long terme", "effects": {"stability": -2, "economy": 2, "satisfaction": 2}}
+      ]
+    },
+    {
+      "id": "dilemma_20",
+      "title": "Proposition de radio libre locale",
+      "text": "Une radio régionale propose une émission d'opinions locales contrôlées pour apaiser les tensions.",
+      "choices": [
+        {"id": "d20_a", "text": "Autoriser l'émission sous contrainte", "effects": {"satisfaction": 4, "stability": -2, "relations": 0}},
+        {"id": "d20_b", "text": "Interdire et centraliser toutes les radios", "effects": {"security": 5, "satisfaction": -5, "stability": 2}},
+        {"id": "d20_c", "text": "Expérimenter un programme pilote limité", "effects": {"satisfaction": 2, "stability": -1, "economy": -1}}
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "leak_docs",
+      "title": "Fuite de documents",
+      "trigger": {"security": {"lt": 50}},
+      "effects": {"stability": -10, "relations": -5},
+      "text": "Des documents confidentiels filtrent vers la presse. L'opinion internationale s'interroge."
+    },
+    {
+      "id": "foreign_aid",
+      "title": "Aide étrangère conditionnelle",
+      "trigger": {"relations": {"gte": 60}},
+      "effects": {"economy": 15, "relations": -10},
+      "text": "Un partenaire propose une aide importante en échange d'une concession diplomatique."
+    },
+    {
+      "id": "strike_risk",
+      "title": "Risque de grève",
+      "trigger": {"satisfaction": {"lt": 40}, "economy": {"lt": 40}},
+      "effects": {"economy": -12, "satisfaction": -8},
+      "text": "Les travailleurs menacent d'arrêter si leurs conditions ne s'améliorent pas."
+    }
+  ],
+  "endings": [
+    {
+      "id": "coup",
+      "title": "Coup d'État",
+      "condition": {"stability": {"lte": 0}},
+      "description": "Les cadres du Parti vous déposent. Le pouvoir change de mains."
+    },
+    {
+      "id": "revolution",
+      "title": "Révolution populaire",
+      "condition": {"satisfaction": {"lte": 0}, "economy": {"lte": 10}},
+      "description": "La rue prend le dessus; l'État vacille."
+    },
+    {
+      "id": "consolidation",
+      "title": "Hégémonie durable",
+      "condition": {"average_gauges": {"gte": 85}, "sustain_turns": 12},
+      "description": "Votre pouvoir est consolidé; vous laissez une marque durable."
+    }
+  ],
+  "notes": {
+    "usage": "Les clés 'effects' modifient les jauges. 'preconditions' sont vérifiées avant d'afficher l'option. 'delayedEffects' s'appliquent après X tours si la condition est remplie.",
+    "gaugeRange": "Chaque jauge va de 0 à 100. Les dépassements sont plafonnés."
+  }
+}

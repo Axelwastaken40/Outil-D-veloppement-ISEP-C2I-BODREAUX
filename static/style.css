@@ -1,0 +1,137 @@
+:root{
+  --bg:#1e1b18; /* dark brown/charcoal */
+  --accent:#b11212; /* soviet red */
+  --gold:#c9a84b; /* muted gold */
+  --paper:#efe8dd; /* paper background for document */
+  --muted:#8b7f78;
+}
+*{box-sizing:border-box;font-family: 'Segoe UI', Roboto, Arial, sans-serif}
+body{margin:0;background:linear-gradient(180deg,#141212 0%, #231f1d 100%);color:var(--paper)}
+header {
+    background-color: #8b0000;
+    color: #ffd700;
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 3px solid #ffd700;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+/* Office Section */
+#office {
+    flex: 2;
+    background-color: #3b3b3b;
+    padding: 1rem;
+    border: 2px solid #ffd700;
+    border-radius: 5px;
+    margin-right: 1rem;
+}
+
+#narrative {
+    background-color: #fff;
+    color: #000;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#choices button {
+    background-color: #8b0000;
+    color: #ffd700;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#choices button:hover {
+    background-color: #a52a2a;
+}
+
+/* Gauges Section */
+#gauges {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.gauge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.gauge label {
+    margin-bottom: 0.5rem;
+}
+
+progress {
+    width: 100%;
+    height: 1rem;
+}
+
+/* Journal Section */
+#journal {
+    margin-top: 1rem;
+    background-color: #3b3b3b;
+    padding: 1rem;
+    border: 2px solid #ffd700;
+    border-radius: 5px;
+}
+
+#journal h3 {
+    margin-top: 0;
+}
+
+#history {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#history li {
+    margin-bottom: 0.5rem;
+}
+
+.container{display:flex;gap:18px;padding:20px;align-items:flex-start}
+.left-panel{flex:1;display:flex;flex-direction:column;gap:12px}
+.right-panel{width:320px;background:rgba(0,0,0,0.2);padding:12px;border-radius:6px}
+.desk{background:linear-gradient(180deg,#2a2623,#1e1917);padding:18px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.6);min-height:480px}
+.document{background:linear-gradient(180deg,var(--paper),#f7f0e6);padding:18px;border-radius:6px;border:3px solid rgba(0,0,0,0.06);color:#111;min-height:220px}
+.narrative{white-space:pre-wrap}
+.choices{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px}
+.choice-btn{background:transparent;border:2px solid var(--accent);color:var(--paper);padding:10px 14px;border-radius:6px;cursor:pointer;transition:all 0.12s ease;font-weight:600}
+.choice-btn:hover{background:var(--accent);transform:translateY(-2px)}
+.journal{background:rgba(0,0,0,0.12);padding:8px;border-radius:6px;color:var(--paper);margin-top:6px}
+.journal-title{font-weight:700;margin-bottom:6px}
+.journal ul{margin:0;padding-left:18px}
+.gauges h3{margin-top:0;color:var(--gold);text-align:left}
+.gauge{display:flex;align-items:center;gap:8px;padding:6px 0}
+.gauge label{flex:1;color:var(--muted);font-size:13px}
+.bar{flex:3;background:#2b2826;border-radius:6px;height:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.04)}
+.fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));width:0%}
+.num{width:36px;text-align:right;color:var(--paper);font-weight:700}
+@media (max-width:900px){
+  .right-panel{display:none}
+  .container{padding:12px}
+}
