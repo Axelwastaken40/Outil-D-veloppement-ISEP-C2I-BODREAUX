@@ -1,0 +1,119 @@
+{
+  "jauges": {
+    "stabilite": {"val": 50, "min": 0, "max": 100, "depend": ["securite", "peuple"]},
+    "economie": {"val": 50, "min": 0, "max": 100, "depend": ["stabilite", "propagande"]},
+    "peuple": {"val": 50, "min": 0, "max": 100, "depend": ["decisions_sociales", "penuries"]},
+    "parti": {"val": 50, "min": 0, "max": 100, "depend": ["securite", "ideologie"]},
+    "securite": {"val": 50, "min": 0, "max": 100, "depend": ["sanctions", "surveillance", "purges"]},
+    "propagande": {"val": 50, "min": 0, "max": 100, "depend": ["ressources", "credibilite"]}
+  },
+  "ressources": {
+    "budget": 1000,
+    "influence": 10,
+    "agents": 5,
+    "propagande": 10,
+    "temps": 8
+  },
+  "actions": [
+    {
+      "id": "favoriser_economie",
+      "label": "Favoriser l’économie",
+      "effets": {"economie": 10, "parti": -5, "budget": -100},
+      "consequences": ["baisse_loyaute_parti"],
+      "cout": {"temps": 1}
+    },
+    {
+      "id": "punir_ministre_corrompu",
+      "label": "Punir un ministre corrompu",
+      "effets": {"securite": 8, "parti": -7, "influence": 2},
+      "consequences": ["risque_complot"],
+      "cout": {"temps": 2}
+    },
+    {
+      "id": "ignorer_plainte",
+      "label": "Ignorer une plainte",
+      "effets": {"peuple": -6, "budget": 20},
+      "consequences": ["montee_mecontentement"],
+      "cout": {"temps": 1}
+    },
+    {
+      "id": "accepter_pot_de_vin",
+      "label": "Accepter un pot-de-vin",
+      "effets": {"economie": 5, "corruption": 3, "budget": 200},
+      "consequences": ["scandale_futur"],
+      "cout": {"temps": 1}
+    },
+    {
+      "id": "refuser_demande_populaire",
+      "label": "Refuser une demande populaire",
+      "effets": {"peuple": -8},
+      "consequences": ["manifestation_futur"],
+      "cout": {"temps": 1}
+    },
+    {
+      "id": "surveiller_citoyen",
+      "label": "Surveiller un citoyen",
+      "effets": {"securite": 5, "influence": -1},
+      "consequences": ["decouverte_complot"],
+      "cout": {"temps": 1}
+    }
+  ],
+  "evenements": [
+    {
+      "id": "attentat",
+      "condition": {"securite": "<20"},
+      "effets": {"stabilite": -15, "peuple": -10},
+      "message": "Une tentative d’attentat a eu lieu !"
+    },
+    {
+      "id": "investisseurs_etrangers",
+      "condition": {"economie": ">70"},
+      "effets": {"budget": 500, "influence": 3},
+      "message": "Des investisseurs étrangers visitent le pays."
+    },
+    {
+      "id": "greve_generale",
+      "condition": {"peuple": "<30"},
+      "effets": {"economie": -20, "stabilite": -10},
+      "message": "Grève générale dans le pays !"
+    },
+    {
+      "id": "purge_interne",
+      "condition": {"parti": "<40"},
+      "effets": {"securite": -10, "stabilite": -8},
+      "message": "Tentative de purge interne au Parti."
+    }
+  ],
+  "fins": [
+    {
+      "id": "revolte_populaire",
+      "condition": {"peuple": "<10", "stabilite": "<20"},
+      "message": "Le peuple se soulève, le régime tombe."
+    },
+    {
+      "id": "coup_etat_militaire",
+      "condition": {"securite": "<10", "parti": "<20"},
+      "message": "Coup d’État militaire, vous êtes destitué."
+    },
+    {
+      "id": "reforme_regime",
+      "condition": {"parti": ">80", "peuple": ">70"},
+      "message": "Vous réformez le régime, une nouvelle ère commence."
+    },
+    {
+      "id": "dictature_renforcee",
+      "condition": {"stabilite": ">90", "securite": ">80"},
+      "message": "Votre dictature est renforcée, le pouvoir est absolu."
+    },
+    {
+      "id": "exil",
+      "condition": {"parti": "<15", "peuple": "<15"},
+      "message": "Vous partez en exil, oublié de tous."
+    },
+    {
+      "id": "mort_politique",
+      "condition": {"economie": "<5", "stabilite": "<5"},
+      "message": "Mort politique : le pays s’effondre, vous disparaissez."
+    }
+  ]
+}
